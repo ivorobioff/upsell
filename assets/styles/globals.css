@@ -30,6 +30,14 @@
   .h3-bold {
     @apply font-bold text-xl lg:text-2xl;
   }
+
+  .title-3 {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+
+  .insight {
+    @apply text-sm md:text-base;
+  }
 }
 
 @layer base {
