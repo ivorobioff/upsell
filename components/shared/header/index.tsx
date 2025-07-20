@@ -1,8 +1,6 @@
-import { EllipsisVerticalIcon, ShoppingCart, UserIcon } from 'lucide-react';
+import { EllipsisVerticalIcon } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { APP_NAME } from '@/lib/constants';
-import ModeToggle from '@/components/shared/header/mode-toggle';
 import Logo from '@/components/ui/logo';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import MainMenu from '@/components/shared/header/main-menu';
@@ -27,6 +25,7 @@ const Header = () => {
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             <MainMenu placement="drawer" />
+            <SheetDescription></SheetDescription>
           </SheetContent>
         </Sheet>
       </nav>

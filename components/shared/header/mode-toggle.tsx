@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
-import { SunIcon, MoonIcon, SunMoonIcon } from 'lucide-react';
+import { SunIcon, MoonIcon, SunMoonIcon, PaintbrushVerticalIcon, PaletteIcon } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { useEffect, useState } from 'react';
 
@@ -24,7 +24,7 @@ const ModeToggle = ({ label }: ModeToggleProps) => {
   return (<DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button variant="ghost">
-        {theme === 'system' ? <SunMoonIcon /> : theme === 'dark' ? <MoonIcon /> : <SunIcon />}
+        {theme === 'system' ? <PaletteIcon /> : theme === 'dark' ? <MoonIcon /> : <SunIcon />}
         {label && 'Appearance'}
       </Button>
     </DropdownMenuTrigger>
