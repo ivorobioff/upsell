@@ -1,9 +1,11 @@
-import { ShoppingCart, UserIcon } from 'lucide-react';
+import { EllipsisVerticalIcon, ShoppingCart, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { APP_NAME } from '@/lib/constants';
 import ModeToggle from '@/components/shared/header/mode-toggle';
 import Logo from '@/components/ui/logo';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import MainMenu from '@/components/shared/header/main-menu';
 
 const Header = () => {
   return <header className="w-full border-b">
@@ -14,19 +16,20 @@ const Header = () => {
           <span className="hidden lg:block font-bold text-2xl ml-3">{APP_NAME}</span>
         </Link>
       </div>
-      <div className="space-x-2">
-        <ModeToggle />
-        <Button asChild variant="ghost">
-          <Link href="/cart">
-            <ShoppingCart /> Cart
-          </Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <Link href="/sign-in">
-            <UserIcon /> Sign In
-          </Link>
-        </Button>
-      </div>
+      <MainMenu />
+      <nav className="flex md:hidden">
+        <Sheet>
+          <SheetTrigger>
+            <EllipsisVerticalIcon />
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <MainMenu placement="drawer" />
+          </SheetContent>
+        </Sheet>
+      </nav>
     </div>
   </header>;
 }

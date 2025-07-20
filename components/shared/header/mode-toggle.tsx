@@ -5,7 +5,11 @@ import { SunIcon, MoonIcon, SunMoonIcon } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { useEffect, useState } from 'react';
 
-const ModeToggle = () => {
+export interface ModeToggleProps {
+  label?: boolean;
+}
+
+const ModeToggle = ({ label }: ModeToggleProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -21,11 +25,14 @@ const ModeToggle = () => {
     <DropdownMenuTrigger asChild>
       <Button variant="ghost">
         {theme === 'system' ? <SunMoonIcon /> : theme === 'dark' ? <MoonIcon /> : <SunIcon />}
+        {label && 'Appearance'}
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
-      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-      <DropdownMenuSeparator />
+      {!label && <>
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+      </>}
       {['system', 'dark', 'light'].map((mode) => <DropdownMenuCheckboxItem className="capitalize" key={mode} checked={theme === mode} onClick={() => setTheme(mode)}>{mode}</DropdownMenuCheckboxItem>)}
     </DropdownMenuContent>
   </DropdownMenu>);
