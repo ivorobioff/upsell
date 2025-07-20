@@ -1,3 +1,4 @@
+import ProductPrice from '@/components/product/product-price';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Product } from '@/db/product';
 import Image from 'next/image';
@@ -23,7 +24,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
       <div className="flex-between">
         <p>{rating} Stars</p>
-        {stock > 0 ? <p className="font-bold">${price.toFixed(2)}</p> : <p className="text-destructive">Out of Stock</p>}
+        {stock > 0 ? <ProductPrice price={price} /> : <p className="text-destructive">Out of Stock</p>}
       </div>
     </CardContent>
   </Card>);
