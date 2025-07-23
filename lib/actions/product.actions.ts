@@ -12,7 +12,7 @@ export async function getLatestProducts(): Promise<Product[]> {
 }
 
 export async function getProductBySlug(slug: string) {
-  return db.product.findFirstOrThrow({
+  return db.product.findFirst({
     where: {
       slug
     },
