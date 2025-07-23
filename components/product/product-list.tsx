@@ -1,5 +1,5 @@
 import ProductCard from '@/components/product/product-card';
-import { Product } from '@/db/product';
+import { Product } from '@/lib/generated/prisma';
 
 export interface ProductListProps {
   data: Product[];

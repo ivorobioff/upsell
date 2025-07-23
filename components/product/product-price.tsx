@@ -1,5 +1,7 @@
+import { Prisma } from '@/lib/generated/prisma';
+
 export interface ProductPriceProps {
-  price: number;
+  price: Prisma.Decimal;
 }
 
 const ProductPrice = ({ price }: ProductPriceProps) => {
