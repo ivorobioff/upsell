@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (error.name === 'CredentialsSignin') {
         return;
       }
-      
+
       console.error(error);
     }
   },

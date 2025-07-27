@@ -1,6 +1,5 @@
 'use client'
 
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -17,7 +16,7 @@ const ProductImages = ({ images }: ProductImagesProps) => {
     </div>
     <div className="flex gap-1">
       {images.map((image, i) => <div key={i} className={`cursor-pointer rounded-xs border-2 overflow-hidden hover:border-orange-500 ${i === index ? 'border-orange-400' : 'border-0'}`} onClick={() => setIndex(i)}>
-        <Image src={images[i]} width={100} height={100} alt={`product image ${image}`} />
+        <Image src={images[i]} width={100} height={100} alt={`product image ${image}`} priority />
       </div>)}
     </div>
   </>);
