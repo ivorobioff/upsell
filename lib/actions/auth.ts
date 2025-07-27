@@ -11,12 +11,12 @@ export const login = async (data: CredentialsSchema) => {
     await signIn('credentials', data);
     return success();
   } catch (e) {
-    if (e instanceof CredentialsSignin) {
-      return fail('Incorrect email or password. Please try again.');
+    if (isRedirectError(e)) {
+      throw e;
     }
 
-    if (isRedirectError(e)) {
-      return success();
+    if (e instanceof CredentialsSignin) {
+      return fail('Incorrect email or password. Please try again.');
     }
 
     return fail('Unknown error. Please try again or contact us.');

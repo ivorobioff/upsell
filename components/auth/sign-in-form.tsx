@@ -15,7 +15,6 @@ import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 import Link from 'next/link';
 import { useState } from 'react';
 import { login } from '@/lib/actions/auth';
-import { redirect } from 'next/navigation';
 
 const SignInForm = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -41,10 +40,7 @@ const SignInForm = () => {
 
         if (!ok) {
           setError('email', { message });
-        } else {
-          redirect('/');
         }
-
       } finally {
         setSubmitting(false);
       }
