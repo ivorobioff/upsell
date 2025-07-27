@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import Header from '@/components/auth/header';
+import AuthPage from '@/components/auth/page';
 import SignInForm from '@/components/auth/sign-in-form';
 import { HOME_PAGE_URL } from '@/lib/constants';
 import { Metadata } from 'next';
@@ -18,10 +18,7 @@ const SignInPage = async ({ searchParams }: { searchParams: Promise<{ callbackUr
     redirect(callbackUrl || HOME_PAGE_URL);
   }
 
-  return (<div className="w-full px-10 sm:px-0 sm:w-1/2 md:w-1/3 lg:w-1/4">
-    <Header title="Sign In" />
-    <SignInForm />
-  </div>);
+  return (<AuthPage title="Sign In"><SignInForm /></AuthPage>);
 }
 
 export default SignInPage;

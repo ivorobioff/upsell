@@ -34,6 +34,14 @@
   .title-3 {
     @apply text-2xl font-semibold tracking-tight;
   }
+
+  .auth-form {
+    @apply space-y-6 w-full
+  }
+
+  .alert-success {
+    @apply bg-green-50 text-green-900
+  }
 }
 
 @layer base {

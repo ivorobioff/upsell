@@ -48,7 +48,7 @@ const SignInForm = () => {
       } finally {
         setSubmitting(false);
       }
-    })} className="space-y-6 w-full">
+    })} className="auth-form">
       <FormField
         control={form.control}
         name="email"

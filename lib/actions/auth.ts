@@ -1,8 +1,10 @@
 'use server'
 
 import { signIn, signOut } from '@/auth'
-import { CredentialsSchema } from '@/lib/models/auth';
+import { db } from '@/db';
+import { CreateUserSchema, createUserSpec, CredentialsSchema } from '@/lib/models/auth';
 import { fail, success } from '@/lib/utils';
+import { hashSync } from 'bcryptjs';
 import { CredentialsSignin } from 'next-auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
@@ -31,3 +33,25 @@ export const login = async (data: CredentialsSchema, { redirectTo }: LoginOption
 };
 
 export const logout = async () => signOut();
+
+export const register = async (data: CreateUserSchema) => {
+
+  createUserSpec.parse(data);
+
+  const { email, password } = data;
+
+  const foundUser = await db.user.findUnique({ where: { email }, select: { id: true } });
+
+  if (foundUser) {
+    return fail('This email is already taken');
+  }
+
+  await db.user.create({
+    data: {
+      ...data,
+      password: hashSync(password)
+    }
+  });
+
+  return success();
+};

@@ -14,3 +14,13 @@ export const credentialsResolver = zodResolver(credentialsSpec);
 export type AuthorizedUser = Pick<User, 'id' | 'email' | 'name' | 'image' | 'role'>;
 
 export const isAuthorizedUser = (user?: Session['user']): user is AuthorizedUser => typeof user === 'object' && 'role' in user;
+
+
+export const createUserSpec = z.object({
+  email: z.email(),
+  password: z.string().min(4),
+  name: z.string().min(1)
+});
+
+export type CreateUserSchema = z.infer<typeof createUserSpec>;
+export const createUserResolver = zodResolver(createUserSpec);
