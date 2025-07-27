@@ -8,10 +8,7 @@ import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
 export const login = async (data: CredentialsSchema) => {
   try {
-    await signIn('credentials', {
-      ...data,
-      redirectTo: '/'
-    });
+    await signIn('credentials', data);
     return success();
   } catch (e) {
     if (isRedirectError(e)) {
