@@ -7,10 +7,7 @@ import { AuthorizedUser, credentialsSpec } from '@/lib/models/auth';
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: {
-    signIn: '/sign-in',
-    error: '/sign-in'
-  },
+
   session: {
     strategy: 'jwt',
     maxAge: 2592000 // 30 days

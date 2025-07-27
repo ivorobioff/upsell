@@ -14,7 +14,9 @@ import { useForm } from 'react-hook-form';
 import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 import Link from 'next/link';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { login } from '@/lib/actions/auth';
+import { redirect } from 'next/navigation';
+
 const SignInForm = () => {
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,7 +28,7 @@ const SignInForm = () => {
     }
   });
 
-  const { formState: { isDirty, isValid } } = form;
+  const { setError, formState: { isDirty, isValid } } = form;
 
   const canSubmit = !submitting && isDirty && isValid;
 
@@ -35,7 +37,13 @@ const SignInForm = () => {
       try {
         setSubmitting(true);
 
-        await signIn('credentials', data);
+        const { ok, message } = await login(data);
+
+        if (!ok) {
+          setError('email', { message });
+        } else {
+          redirect('/');
+        }
 
       } finally {
         setSubmitting(false);
