@@ -1,4 +1,6 @@
-'use client'
+'use client';
+import { signIn } from 'next-auth/react';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -9,13 +11,10 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input';
-import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
-import { signIn } from 'next-auth/react';
-
 import { useForm } from 'react-hook-form';
+import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 
-const SignIn = () => {
-
+const SignInForm = () => {
   const form = useForm<CredentialsSchema>({
     resolver: credentialsResolver,
     defaultValues: {
@@ -23,11 +22,10 @@ const SignIn = () => {
       password: ''
     }
   });
-
   return (<Form {...form}>
     <form onSubmit={form.handleSubmit(async (data) => {
       await signIn('credentials', data);
-    })} className="w-2/3 space-y-6">
+    })} className="space-y-6 w-full">
       <FormField
         control={form.control}
         name="email"
@@ -56,7 +54,7 @@ const SignIn = () => {
       />
       <Button type="submit">Sing In</Button>
     </form>
-  </Form >);
+  </Form>);
 }
 
-export default SignIn;
+export default SignInForm;
