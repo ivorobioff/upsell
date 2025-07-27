@@ -29,6 +29,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+  logger: {
+    error: (error) => {
+      if (error.name === 'CredentialsSignin') {
+        return;
+      }
+      
+      console.error(error);
+    }
+  },
   providers: [
     Credentials({
       credentials: {

@@ -7,7 +7,7 @@ export interface LogoProps {
 }
 
 const Logo = ({ size, className }: LogoProps) => {
-  return (<Image src="/images/logo.svg" width={size} height={size} alt={`${APP_NAME} logo`} className={className} />);
+  return (<Image src="/images/logo.svg" width={size} height={size} alt={`${APP_NAME} logo`} priority className={className} />);
 }
 
 export default Logo;

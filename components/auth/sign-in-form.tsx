@@ -1,5 +1,4 @@
 'use client';
-import { signIn } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,8 +13,11 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 import Link from 'next/link';
-
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 const SignInForm = () => {
+  const [submitting, setSubmitting] = useState(false);
+
   const form = useForm<CredentialsSchema>({
     resolver: credentialsResolver,
     defaultValues: {
@@ -23,9 +25,21 @@ const SignInForm = () => {
       password: ''
     }
   });
+
+  const { formState: { isDirty, isValid } } = form;
+
+  const canSubmit = !submitting && isDirty && isValid;
+
   return (<Form {...form}>
     <form onSubmit={form.handleSubmit(async (data) => {
-      await signIn('credentials', data);
+      try {
+        setSubmitting(true);
+
+        await signIn('credentials', data);
+
+      } finally {
+        setSubmitting(false);
+      }
     })} className="space-y-6 w-full">
       <FormField
         control={form.control}
@@ -54,7 +68,7 @@ const SignInForm = () => {
         )}
       />
       <div className="text-center">
-        <Button type="submit" className="w-full mb-4">Sing In</Button>
+        <Button disabled={!canSubmit} type="submit" className="w-full mb-4">{submitting ? 'Signing In...' : 'Sing In'}</Button>
         <p className="text-sm text-muted-foreground">Don't have an account? <Link href="/sign-up" target="_self" className="font-semibold">Sign Up</Link></p>
       </div>
     </form>
