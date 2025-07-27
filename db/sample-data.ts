@@ -1,4 +1,19 @@
+import { hashSync } from 'bcryptjs';
+
 const sampleData = {
+  users: [
+    {
+      name: 'Igor Vorobiov',
+      email: 'igor.vorobioff@gmail.com',
+      password: hashSync('1234', 8),
+      role: 'admin'
+    }, {
+      name: 'Veronica Vorobiov',
+      email: 'veronica.vorobioff@gmail.com',
+      password: hashSync('4321', 8),
+      role: 'user'
+    }
+  ],
   products: [
     {
       name: 'Polo Sporting Stretch Shirt',

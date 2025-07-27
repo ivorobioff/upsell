@@ -4,11 +4,25 @@ import { PrismaClient } from '@/lib/generated/prisma';
 async function main() {
   const client = new PrismaClient();
 
-  await client.product.deleteMany();
+  const entities: { deleteMany(): Promise<unknown>; }[] = [
+    client.product,
+    client.session,
+    client.account,
+    client.user,
+    client.verificationToken
+  ];
 
-  const result = await client.product.createMany({ data: sampleData.products });
+  for (const entity of entities) {
+    await entity.deleteMany();
+  }
 
-  console.log(`Created ${result.count} products!`);
+  const products = await client.product.createMany({ data: sampleData.products });
+
+  console.log(`Created ${products.count} products!`);
+
+  const users = await client.user.createMany({ data: sampleData.users });
+
+  console.log(`Created ${users.count} users!`);
 }
 
 main();
