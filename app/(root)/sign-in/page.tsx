@@ -6,6 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input';
 import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
@@ -36,6 +37,7 @@ const SignIn = () => {
             <FormControl>
               <Input  {...field} type="email" />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -48,6 +50,7 @@ const SignIn = () => {
             <FormControl>
               <Input  {...field} type="password" />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
