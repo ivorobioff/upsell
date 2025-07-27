@@ -3,13 +3,12 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { compareSync } from 'bcryptjs';
-import { User } from '@/lib/generated/prisma';
-import { credentialsSpec } from '@/lib/models/credentials';
+import { AuthorizedUser, credentialsSpec } from '@/lib/models/auth';
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
-    
+
   },
   session: {
     strategy: 'jwt',
@@ -19,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     jwt: ({ token, user }) => {
       if (user) {
-        token.sub = user.id;
+        token.role = user.role;
       }
       return token;
     },
@@ -41,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           type: 'password'
         },
       },
-      authorize: async (credentials): Promise<Pick<User, 'id' | 'name' | 'email' | 'role'> | null> => {
+      authorize: async (credentials): Promise<AuthorizedUser | null> => {
         if (!credentials) {
           return null;
         }
@@ -58,12 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role
-        };
+        return user;
       }
     })
   ],

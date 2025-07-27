@@ -8,7 +8,7 @@ import {
   FormLabel,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input';
-import { credentialsResolver, CredentialsSchema } from '@/lib/models/credentials';
+import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 import { signIn } from 'next-auth/react';
 
 import { useForm } from 'react-hook-form';
