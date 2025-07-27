@@ -15,9 +15,11 @@ import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
 import Link from 'next/link';
 import { useState } from 'react';
 import { login } from '@/lib/actions/auth';
+import { useSearchParams } from 'next/navigation';
 
 const SignInForm = () => {
   const [submitting, setSubmitting] = useState(false);
+  const searchParams = useSearchParams();
 
   const form = useForm<CredentialsSchema>({
     resolver: credentialsResolver,
@@ -36,7 +38,9 @@ const SignInForm = () => {
       try {
         setSubmitting(true);
 
-        const { ok, message } = await login(data);
+        const { ok, message } = await login(data, {
+          redirectTo: searchParams.get('callbackUrl')
+        });
 
         if (!ok) {
           setError('email', { message });

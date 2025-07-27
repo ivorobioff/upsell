@@ -6,9 +6,16 @@ import { fail, success } from '@/lib/utils';
 import { CredentialsSignin } from 'next-auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 
-export const login = async (data: CredentialsSchema) => {
+export interface LoginOptions {
+  redirectTo?: string | null;
+}
+
+export const login = async (data: CredentialsSchema, { redirectTo }: LoginOptions = {}) => {
   try {
-    await signIn('credentials', data);
+    await signIn('credentials', {
+      ...data,
+      redirectTo: redirectTo || '/'
+    });
     return success();
   } catch (e) {
     if (isRedirectError(e)) {
