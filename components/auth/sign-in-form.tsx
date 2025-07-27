@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { credentialsResolver, CredentialsSchema } from '@/lib/models/auth';
+import Link from 'next/link';
 
 const SignInForm = () => {
   const form = useForm<CredentialsSchema>({
@@ -52,7 +53,10 @@ const SignInForm = () => {
           </FormItem>
         )}
       />
-      <Button type="submit">Sing In</Button>
+      <div className="text-center">
+        <Button type="submit" className="w-full mb-4">Sing In</Button>
+        <p className="text-sm text-muted-foreground">Don't have an account? <Link href="/sign-up" target="_self" className="font-semibold">Sign Up</Link></p>
+      </div>
     </form>
   </Form>);
 }
