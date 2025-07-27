@@ -29,9 +29,9 @@ const SignInForm = () => {
     }
   });
 
-  const { setError, formState: { isDirty, isValid } } = form;
+  const { setError, formState: { isDirty } } = form;
 
-  const canSubmit = !submitting && isDirty && isValid;
+  const canSubmit = !submitting && isDirty;
 
   return (<Form {...form}>
     <form onSubmit={form.handleSubmit(async (data) => {
@@ -43,7 +43,7 @@ const SignInForm = () => {
         });
 
         if (!ok) {
-          setError('email', { message });
+          setError('password', { message });
         }
       } finally {
         setSubmitting(false);

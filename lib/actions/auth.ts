@@ -1,6 +1,6 @@
 'use server'
 
-import { signIn } from '@/auth'
+import { signIn, signOut } from '@/auth'
 import { CredentialsSchema } from '@/lib/models/auth';
 import { fail, success } from '@/lib/utils';
 import { CredentialsSignin } from 'next-auth';
@@ -29,3 +29,5 @@ export const login = async (data: CredentialsSchema, { redirectTo }: LoginOption
     return fail('Unknown error. Please try again or contact us.');
   }
 };
+
+export const logout = async () => signOut();

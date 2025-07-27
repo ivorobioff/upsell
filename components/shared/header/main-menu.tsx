@@ -1,7 +1,9 @@
 import { auth } from '@/auth';
 import ModeToggle from '@/components/shared/header/mode-toggle';
+import UserButton from '@/components/shared/header/user-button';
 import { Button } from '@/components/ui/button';
-import { LogOutIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import { isAuthorizedUser } from '@/lib/models/auth';
+import { ShoppingCartIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export interface MainMenuProps {
@@ -10,6 +12,8 @@ export interface MainMenuProps {
 
 const MainMenu = async ({ placement = 'default' }: MainMenuProps) => {
   const session = await auth();
+  const user = session?.user;
+
   return (<nav className={placement === 'default' ? 'hidden space-x-2 md:flex' : 'flex flex-col w-full'}>
     {placement === 'default' && <ModeToggle />}
     <Button asChild variant="ghost">
@@ -17,11 +21,11 @@ const MainMenu = async ({ placement = 'default' }: MainMenuProps) => {
         <ShoppingCartIcon /> Cart
       </Link>
     </Button>
-    <Button asChild variant="ghost">
-      <Link href="/sign-in">
-        {session ? <><LogOutIcon /> Sign Out</> : <><UserIcon /> Sign In</>}
-      </Link>
-    </Button>
+    {isAuthorizedUser(user)
+      ? <UserButton user={user} />
+      : <Button asChild variant="default">
+        <Link href="/sign-in" color=""><UserIcon /> Sign In</Link>
+      </Button>}
     {placement === 'drawer' && <ModeToggle label />}
   </nav>);
 }
